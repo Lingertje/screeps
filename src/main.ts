@@ -1,27 +1,27 @@
+interface CreepMemory {
+    working: boolean
+}
+
 module.exports.loop = () => {
     for (const i in Game.creeps) {
-        const creep = Game.creeps[i];
-        const closestResource = creep.pos.findClosestByPath(FIND_SOURCES);
+        const creep: Creep = Game.creeps[i];
+        const closestResource: Source = creep.pos.findClosestByPath(FIND_SOURCES);
 
-        // @ts-expect-error
         if (creep.store.getFreeCapacity() > 0 && !creep.memory.working) {
             if (creep.harvest(closestResource) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(closestResource);
+                creep.moveTo(closestResource, { visualizePathStyle: { stroke: '#000' }});
                 return
             }
     
             creep.harvest(closestResource);
         } else {
-            // @ts-expect-error
             creep.memory.working = true;
         }
 
         if (creep.store.getUsedCapacity(RESOURCE_ENERGY) === 0) {
-            // @ts-expect-error
             creep.memory.working = false;
         }
 
-        // @ts-expect-error
         if (creep.memory.working) {
             transferToStructure(creep);
         }
@@ -48,3 +48,9 @@ const transferToStructure = (creep: Creep) => {
         creep.transfer(creep.room.controller, RESOURCE_ENERGY);
     }
 }
+
+// Game.spawns['Spawn1'].spawnCreep([WORK, MOVE, CARRY], 'Harvester', {
+//     memory: {
+//         working: false
+//     }
+// })
