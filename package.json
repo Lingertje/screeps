@@ -5,13 +5,17 @@
   "repository": "git@github.com:Lingertje/screeps.git",
   "private": true,
   "scripts": {
-    "deploy": "gulp deploy"
+    "build": "gulp typescript",
+    "deploy": "yarn build && gulp deploy"
   },
   "devDependencies": {
+    "@types/node": "false17.0.23",
     "gulp": "4.0.2",
-    "gulp-screeps": "1.1.0"
+    "gulp-screeps": "1.1.0",
+    "gulp-typescript": "6.0.0-alpha.1",
+    "typescript": "false4.6.3"
   },
   "dependencies": {
-    "@types/screeps": "false3.2.4"
+    "@types/screeps": "3.2.4"
   }
 }
