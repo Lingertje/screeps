@@ -1,3 +1,3 @@
-module.exports.loop = {
+module.exports.loop = () => {
     // This is a test
 }

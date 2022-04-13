@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "description": "Lingertje's screeps repo",
   "repository": "git@github.com:Lingertje/screeps.git",
+  "private": true,
+  "scripts": {
+    "deploy": "gulp deploy"
+  },
   "devDependencies": {
     "gulp": "4.0.2",
     "gulp-screeps": "1.1.0"
+  },
+  "dependencies": {
+    "@types/screeps": "false3.2.4"
   }
 }

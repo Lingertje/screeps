@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@types/screeps@false3.2.4":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@types/screeps/-/screeps-3.2.4.tgz#7a52d57c920e16f52f853cf4c55a1f603457c78d"
+  integrity sha512-itlqAHdAZ2ZkDFERy3TkmmMIisSXT7tXfEnhhl5N7xNZbNmNs/qgGfCIRchPLIFj0w5EPpj6JurKZ3vpSxaNiQ==
+
 ansi-colors@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-1.1.0.tgz#6374b4dd5d4718ff3ce27a671a3b1cad077132a9"
@@ -877,7 +882,7 @@ gulp-cli@^2.2.0:
     v8flags "^3.2.0"
     yargs "^7.1.0"
 
-gulp-screeps@false1.1.0:
+gulp-screeps@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/gulp-screeps/-/gulp-screeps-1.1.0.tgz#2aecbde3df82e9215e05669282a2095ad06dbf86"
   integrity sha512-YHoKaQEksBQDuiN3xB5lbE+5funcs/zWr2pLz3uW3GWqzQNsMD08C1bDy2pR+QzpYO0nr9PTn9vSAzyLUjRuog==
@@ -886,7 +891,7 @@ gulp-screeps@false1.1.0:
     plugin-error "^0.1.2"
     through2 "^2.0.0"
 
-gulp@false4.0.2:
+gulp@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/gulp/-/gulp-4.0.2.tgz#543651070fd0f6ab0a0650c6a3e6ff5a7cb09caa"
   integrity sha512-dvEs27SCZt2ibF29xYgmnwwCYZxdxhQ/+LFWlbAW8y7jt68L/65402Lz3+CKy0Ov4rOs+NERmDq7YlZaDqUIfA==
