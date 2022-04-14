@@ -7,8 +7,7 @@ const credentials = require('./credentials')
 task('typescript', () => {
     return src('src/**/*.ts')
         .pipe(ts({
-            noImplicitAny: true,
-            outFile: 'main.js'
+            noImplicitAny: true
         }))
         .pipe(dest('build'))
 })

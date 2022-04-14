@@ -1,56 +1,48 @@
+var roleWorker: iRoleWorker = require('role.worker');
+var roleBuilder: iRoleBuilder = require('role.builder');
+
+enum Role { 
+    WORKER = "worker",
+    BUILDER = "builder"
+}
 interface CreepMemory {
-    working: boolean
+    role?: Role
+    working?: boolean
 }
 
 module.exports.loop = () => {
     for (const i in Game.creeps) {
         const creep: Creep = Game.creeps[i];
-        const closestResource: Source = creep.pos.findClosestByPath(FIND_SOURCES);
 
-        if (creep.store.getFreeCapacity() > 0 && !creep.memory.working) {
-            if (creep.harvest(closestResource) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(closestResource, { visualizePathStyle: { stroke: '#000' }});
-                return
-            }
-    
-            creep.harvest(closestResource);
-        } else {
-            creep.memory.working = true;
+        if (creep.memory.role === Role.WORKER) {
+            roleWorker.run(creep)
         }
 
-        if (creep.store.getUsedCapacity(RESOURCE_ENERGY) === 0) {
-            creep.memory.working = false;
+        if (creep.memory.role === Role.BUILDER) {
+            roleBuilder.run(creep);
         }
+    }
 
-        if (creep.memory.working) {
-            transferToStructure(creep);
-        }
+    // @ts-ignore
+    if (_(Game.creeps).filter({ memory: {role: Role.WORKER}}).size() < 4) {
+        spawnCreep(Role.WORKER);
+    }
+
+    // @ts-ignore
+    if (_(Game.creeps).filter({ memory: {role: Role.BUILDER}}).size() < 2) { // TODO: Check if controller level is atleast 2 
+        spawnCreep(Role.BUILDER, [WORK, WORK, MOVE, CARRY]);
     }
 }
 
-const transferToStructure = (creep: Creep) => {
-    const structuresWithEnergyNeeds = creep.room.find(FIND_STRUCTURES, {
-        filter: (structure) => ( structure.structureType === STRUCTURE_SPAWN ) && structure.store.getUsedCapacity(RESOURCE_ENERGY) < structure.store.getCapacity(RESOURCE_ENERGY)
-    });
+const spawnCreep = (role: Role, body = [WORK, MOVE, CARRY]) => {
+    const randomNumber = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+    const name = `${role}_${randomNumber}`;
 
-    if (structuresWithEnergyNeeds.length) {
-        if (creep.transfer(structuresWithEnergyNeeds[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(structuresWithEnergyNeeds[0]);
-            return;
+    Game.spawns['Spawn1'].spawnCreep(body, name, {
+        memory: {
+            role,      
+            working: false
         }
-
-        creep.transfer(structuresWithEnergyNeeds[0], RESOURCE_ENERGY);
-    } else {
-        if (creep.transfer(creep.room.controller, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(creep.room.controller);
-        }
-
-        creep.transfer(creep.room.controller, RESOURCE_ENERGY);
-    }
+    })
 }
 
-// Game.spawns['Spawn1'].spawnCreep([WORK, MOVE, CARRY], 'Harvester', {
-//     memory: {
-//         working: false
-//     }
-// })
