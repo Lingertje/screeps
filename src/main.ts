@@ -30,7 +30,7 @@ module.exports.loop = () => {
 
     // @ts-ignore
     if (_(Game.creeps).filter({ memory: {role: Role.BUILDER}}).size() < 2) { // TODO: Check if controller level is atleast 2 
-        spawnCreep(Role.BUILDER, [WORK, WORK, MOVE, CARRY]);
+        spawnCreep(Role.BUILDER, [WORK, WORK, MOVE, MOVE, CARRY, CARRY]);
     }
 }
 

@@ -1,3 +1,5 @@
+var helpers = require('./helpers');
+
 interface iRoleBuilder {
     run: (creep: Creep) => void 
 }
@@ -9,10 +11,7 @@ var roleBuilder: iRoleBuilder = {
         if (creep.store.getFreeCapacity() > 0 && !creep.memory.working) {
             if (creep.harvest(closestResource) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(closestResource, { visualizePathStyle: { stroke: '#000' }});
-                return
             }
-    
-            creep.harvest(closestResource);
         } else {
             creep.memory.working = true;
         }
@@ -36,7 +35,7 @@ const constructBuilding = (creep: Creep) => {
         }
     } else {
         creep.say("Nothing to build..");
-        transferToStructure(creep);
+        helpers.transferToStructure(creep);
     }
 }
 
